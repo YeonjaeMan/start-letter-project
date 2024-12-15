@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +18,9 @@
     <div class="container">
         <h1 class="text-center">편지톡</h1>
         <nav class="nav justify-content-center">
-            <a class="nav-link active" href="index.html">홈</a>
+            <a class="nav-link active" th:href="@{/}">홈</a>
             <a class="nav-link" href="#">편지 작성</a>
-            <a class="nav-link" href="#">내 편지</a>
+            <a class="nav-link" th:href="@{/letters}">내 편지</a>
             <a class="nav-link" href="#">이벤트</a>
         </nav>
     </div>
@@ -41,15 +41,6 @@
             </div>
             <button type="submit" class="btn btn-primary">편지 전송하기</button>
         </form>
-    </section>
-
-    <section class="mt-5">
-        <h3>최근 편지</h3>
-        <ul class="list-group">
-            <li class="list-group-item">친구에게 보낸 편지 1</li>
-            <li class="list-group-item">가족에게 보낸 편지 2</li>
-            <li class="list-group-item">연인에게 보낸 편지 3</li>
-        </ul>
     </section>
 </main>
 
