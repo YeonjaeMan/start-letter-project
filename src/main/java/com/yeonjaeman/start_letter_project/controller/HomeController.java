@@ -10,14 +10,4 @@ public class HomeController {
     public String home() {
         return "index";
     }
-
-    @GetMapping("/letters/new")
-    public String lettersNew() {
-        return "letter-form";
-    }
-
-    @GetMapping("/letters")
-    public String letters() {
-        return "letters";
-    }
 }
