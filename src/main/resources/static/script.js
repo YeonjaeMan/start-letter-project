@@ -30,86 +30,91 @@ function navigate(page) {
             navigate('createCard');
         });
     } else if (page === 'createCard') {
-        contentDiv.innerHTML = `
-            <div class="container mt-4">
-                <h3>카드 작성</h3>
-                <form id="cardForm">
-                    <div class="d-flex justify-content-between">
-                        <div class="mb-3">
-                            <label for="backgroundImage" class="form-label">배경 이미지 업로드</label>
-                            <input type="file" class="form-control" id="backgroundImage" accept="image/*" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fontColor" class="form-label">글자 색상</label>
-                            <input type="color" class="form-control" id="fontColor" value="#ffffff">
-                        </div>
-                        <div class="mb-3">
-                            <label for="fontFamily" class="form-label">글꼴 선택</label>
-                            <select class="form-select" id="fontFamily">
-                                <option value="Arial">Arial</option>
-                                <option value="Courier New">Courier New</option>
-                                <option value="Georgia">Georgia</option>
-                                <option value="Times New Roman">Times New Roman</option>
-                                <option value="Verdana">Verdana</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cardText" class="form-label">메세지</label>
-                        <input type="text" class="form-control" id="cardTextInput" required>
-                    </div>
-                    <div id="cardPreview">
-                        <div class="card text-bg-dark" style="background-color: transparent;">
-                          <img src="" class="card-img" alt="Card background" id="cardBackground" style="display: none;">
-                          <div class="card-img-overlay">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text" id="cardText">여기에 메세지를 입력하세요.</p>
+          contentDiv.innerHTML = `
+              <div class="container mt-4">
+                  <h3>카드 작성</h3>
+                  <form id="cardForm">
+                      <div class="d-flex justify-content-between">
+                          <div class="mb-3">
+                              <label for="backgroundImage" class="form-label">배경 이미지 업로드</label>
+                              <input type="file" class="form-control" id="backgroundImage" accept="image/*" required>
                           </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">카드 작성 완료</button>
-                    <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
-                </form>
-            </div>
-        `;
+                          <div class="mb-3">
+                              <label for="fontColor" class="form-label">글자 색상</label>
+                              <input type="color" class="form-control" id="fontColor" value="#ffffff">
+                          </div>
+                          <div class="mb-3">
+                              <label for="fontFamily" class="form-label">글꼴 선택</label>
+                              <select class="form-select" id="fontFamily">
+                                  <option value="Arial">Arial</option>
+                                  <option value="Courier New">Courier New</option>
+                                  <option value="Georgia">Georgia</option>
+                                  <option value="Times New Roman">Times New Roman</option>
+                                  <option value="Verdana">Verdana</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="cardText" class="form-label">메세지</label>
+                          <input type="text" class="form-control" id="cardTextInput" required>
+                      </div>
+                      <div class="card" style="width: 18rem;">
+                          <img src="" class="card-img" alt="Card background" id="cardBackground" style="display: none;">
+                          <div class="card-img-overlay d-flex flex-column justify-content-end">
+                              <h5 class="card-title" id="cardTitle">카드 제목</h5>
+                              <p class="card-text" id="cardText">여기에 메시지를 입력하세요.</p>
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-success">카드 작성 완료</button>
+                      <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
+                  </form>
+              </div>
+          `;
 
-        // 배경 이미지 업로드 이벤트
-            document.getElementById('backgroundImage').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
+          // 배경 이미지 업로드 이벤트
+          document.getElementById('backgroundImage').addEventListener('change', function(event) {
+              const file = event.target.files[0];
+              const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const cardBackground = document.getElementById('cardBackground');
-                    cardBackground.src = e.target.result; // 이미지 소스 설정
-                    cardBackground.style.display = 'block'; // 이미지 표시
-                };
+              reader.onload = function(e) {
+                  const cardBackground = document.getElementById('cardBackground');
+                  cardBackground.src = e.target.result; // 이미지 소스 설정
+                  cardBackground.style.display = 'block'; // 이미지 표시
 
-                reader.readAsDataURL(file);
-            });
+                  // 카드 배경 이미지 스타일 설정
+                  const card = cardBackground.parentElement; // 카드 요소
+                  card.style.backgroundImage = `url(${e.target.result})`;
+                  card.style.backgroundSize = 'cover'; // 배경 이미지 크기 조정
+                  card.style.backgroundPosition = 'center'; // 배경 이미지 위치 조정
+                  cardBackground.style.display = 'none'; // img 태그 숨김
+              };
 
-        // 카드 텍스트 업데이트
-            document.getElementById('cardTextInput').addEventListener('input', function(event) {
-                const cardText = document.getElementById('cardText');
-                cardText.textContent = event.target.value; // 카드 텍스트 업데이트
-            });
+              reader.readAsDataURL(file);
+          });
 
-            // 글자 색상 변경 이벤트
-            document.getElementById('fontColor').addEventListener('input', function(event) {
-                const cardText = document.getElementById('cardText');
-                cardText.style.color = event.target.value; // 글자 색상 변경
-            });
+          // 카드 텍스트 업데이트
+          document.getElementById('cardTextInput').addEventListener('input', function(event) {
+              const cardText = document.getElementById('cardText');
+              cardText.textContent = event.target.value; // 카드 텍스트 업데이트
+          });
 
-            // 글꼴 변경 이벤트
-            document.getElementById('fontFamily').addEventListener('change', function(event) {
-                const cardText = document.getElementById('cardText');
-                cardText.style.fontFamily = event.target.value; // 글꼴 변경
-            });
+          // 글자 색상 변경 이벤트
+          document.getElementById('fontColor').addEventListener('input', function(event) {
+              const cardText = document.getElementById('cardText');
+              cardText.style.color = event.target.value; // 글자 색상 변경
+          });
 
-        // 뒤로가기 버튼 클릭 이벤트 추가
-        document.getElementById('backBtn').addEventListener('click', function() {
-            navigate('home');
-        });
-    }
+          // 글꼴 변경 이벤트
+          document.getElementById('fontFamily').addEventListener('change', function(event) {
+              const cardText = document.getElementById('cardText');
+              cardText.style.fontFamily = event.target.value; // 글꼴 변경
+          });
+
+          // 뒤로가기 버튼 클릭 이벤트 추가
+          document.getElementById('backBtn').addEventListener('click', function() {
+              navigate('home');
+          });
+      }
 
     // 해시 변경
     window.location.hash = page;
