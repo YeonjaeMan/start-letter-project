@@ -45,9 +45,9 @@ public class LettersController {
         // 원본 이미지 로드
         BufferedImage originalImage = ImageIO.read(file.getInputStream());
 
-        // 리사이즈할 크기 설정 (예: 800x600)
-        int maxWidth = 400;
-        int maxHeight = 300;
+        // 리사이즈할 크기 설정
+        int maxWidth = 600;
+        int maxHeight = 400;
 
         // 원본 이미지의 비율에 맞춰 크기 계산
         int width = originalImage.getWidth();

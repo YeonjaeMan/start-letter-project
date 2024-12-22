@@ -47,15 +47,30 @@
 
 <main>
     <section class="container">
-        <h3>미리보기</h3>
-        <div class="card">
-            <img th:src="${backgroundImage != null ? 'data:image/jpeg;base64,' + backgroundImage : ''}" class="card-img-top" alt="배경 이미지">
-            <div class="card-body">
-                <h5 class="card-title">카드 내용</h5>
-                <p class="card-text">여기에 카드 내용을 추가하세요.</p>
+        <form action="#" method="POST">
+            <h3>미리보기</h3>
+            <div class="card">
+                <img th:src="${backgroundImage != null ? 'data:image/jpeg;base64,' + backgroundImage : ''}"
+                     class="card-img-top" alt="배경 이미지">
+                <div class="card-img-overlay">
+                    <div class="form-floating is-invalid">
+                        <input type="text" class="form-control" id="receiver" name="receiver" placeholder="받는 사람">
+                        <label for="receiver">To.</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                                  id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Content</label>
+                    </div>
+                    <div class="form-floating is-invalid">
+                        <input type="text" class="form-control" id="sender" name="sender" placeholder="보내는 사람">
+                        <label for="sender">From.</label>
+                    </div>
+                </div>
             </div>
-        </div>
-        <a href="/letters/start" class="btn btn-secondary mt-3">다시 업로드하기</a>
+            <button type="submit" class="btn btn-primary mt-3">카드 생성하기</button>
+            <a href="/letters/start" class="btn btn-secondary mt-3">다시 업로드하기</a>
+        </form>
     </section>
 </main>
 
