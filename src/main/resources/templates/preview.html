@@ -37,6 +37,20 @@
             border: none;
             border-bottom: 1px solid #000;
         }
+        #editor-toolbar {
+            margin-bottom: 10px;
+        }
+        .bold { font-weight: bold; }
+        .italic { font-style: italic; }
+        .underline { text-decoration: underline; }
+        .white { color: white; }
+        .red { color: red; }
+        .blue { color: blue; }
+        .green { color: green; }
+        .black { color: black; }
+        .large { font-size: 1.5em; }
+        .medium { font-size: 1.2em; }
+        .small { font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -80,6 +94,42 @@
     <section class="container">
         <form th:action="@{/letters/new}" method="POST">
             <h3>카드 작성</h3>
+            <div id="editor-toolbar">
+                <select onchange="">
+                    <option value="">글꼴</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Courier">Courier</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+
+                <select onchange="changeColor(this.value)">
+                    <option value="">색상</option>
+                    <option value="white">흰</option>
+                    <option value="red">빨강</option>
+                    <option value="blue">파랑</option>
+                    <option value="green">초록</option>
+                    <option value="black">검정</option>
+                </select>
+
+                <select onchange="changeSize(this.value)">
+                    <option value="">크기</option>
+                    <option value="small">작음</option>
+                    <option value="medium">보통</option>
+                    <option value="large">큼</option>
+                </select>
+
+                <select onchange="changeAlignment(this.value)">
+                    <option value="">정렬</option>
+                    <option value="left">왼쪽</option>
+                    <option value="center">가운데</option>
+                    <option value="right">오른쪽</option>
+                </select>
+
+                <button type="button" onclick="applyStyle('bold')">B</button>
+                <button type="button" onclick="applyStyle('italic')">I</button>
+                <button type="button" onclick="applyStyle('underline')">U</button>
+            </div>
             <div class="card w-50 h-50">
                 <img th:src="${backgroundImage != null ? 'data:image/jpeg;base64,' + backgroundImage : ''}"
                      class="card-img-top" alt="배경 이미지">
@@ -91,11 +141,6 @@
                     <div class="form-floating flex-fill mb-3">
                         <div id="card-content" contenteditable="true"></div>
                     </div>
-<!--                    <div class="form-floating flex-fill mb-3">-->
-<!--                        <textarea class="form-control textarea-underline h-100" placeholder="Leave a comment here"-->
-<!--                                  id="floatingTextarea"></textarea>-->
-<!--                        <label for="floatingTextarea">Content</label>-->
-<!--                    </div>-->
                     <div class="form-floating is-invalid mt-auto align-self-end">
                         <span>From.</span>
                         <input type="text" id="sender" name="sender" placeholder="보내는 사람">
@@ -123,11 +168,43 @@
         crossorigin="anonymous"></script>
 
 <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        // e.preventDefault();
-        const content = document.getElementById('card-content').innerHTML;
-        console.log(content);
-    });
+    function applyStyle(style) {
+        const selection = window.getSelection(); // 현재 선택된 텍스트 가져오기
+        if (selection.rangeCount > 0) {
+            // 드래그된 텍스트가 있는 경우
+            const range = selection.getRangeAt(0);
+            const span = document.createElement("span");
+            span.className = style; // 선택한 스타일 클래스 추가
+            range.surroundContents(span); // 선택된 텍스트를 감싸기
+        } else {
+            // 드래그된 텍스트가 없는 경우, 전체 스타일 적용
+            const content = document.getElementById('card-content');
+            content.classList.toggle(style); // 전체 스타일 토글
+        }
+    }
+
+    function changeColor(color) {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            document.execCommand('foreColor', false, color); // 드래그된 텍스트 색상 변경
+        } else {
+            const content = document.getElementById('card-content');
+            content.style.color = color; // 전체 색상 변경
+        }
+    }
+
+    function changeSize(size) {
+        const content = document.getElementById('card-content');
+        content.classList.remove('large', 'medium', 'small'); // 기존 크기 클래스 제거
+        if (size) {
+            content.classList.add(size); // 선택한 크기 클래스 추가
+        }
+    }
+
+    function changeAlignment(alignment) {
+        const content = document.getElementById('card-content');
+        content.style.textAlign = alignment; // 정렬 변경
+    }
 </script>
 </body>
 </html>
