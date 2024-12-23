@@ -41,6 +41,11 @@ public class LettersController {
         return "preview";
     }
 
+    @PostMapping("/new")
+    public String createLetter() {
+        return "redirect:/";
+    }
+
     private byte[] compressAndResizeImage(MultipartFile file) throws IOException {
         // 원본 이미지 로드
         BufferedImage originalImage = ImageIO.read(file.getInputStream());
