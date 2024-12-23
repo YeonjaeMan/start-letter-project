@@ -14,17 +14,17 @@
             height: 100%; /* 높이를 100%로 설정 */
             box-shadow: none; /* 그림자 제거 */
             position: relative; /* 줄을 위한 위치 설정 */
-            line-height: 2; /* 줄 간격 설정 */
+            line-height: 3; /* 줄 간격 설정 */
         }
         #card-content::before {
             content: "";
             position: absolute;
             left: 0;
-            top: 2em;
+            top: 3em;
             right: 0;
             height: 100%;
             background-image: linear-gradient(to bottom, #000 1px, transparent 1px); /* 줄을 그리기 위한 배경 이미지 */
-            background-size: 100% 2em; /* 줄 간격 조정 */
+            background-size: 100% 3em; /* 줄 간격 조정 */
             pointer-events: none; /* 클릭 이벤트 비활성화 */
         }
         #card-content:focus {
@@ -109,13 +109,13 @@
                     <option value="red">빨강</option>
                     <option value="blue">파랑</option>
                     <option value="green">초록</option>
-                    <option value="black">검정</option>
+                    <option value="black" selected>검정</option>
                 </select>
 
                 <select onchange="changeSize(this.value)">
                     <option value="">크기</option>
                     <option value="small">작음</option>
-                    <option value="medium">보통</option>
+                    <option value="medium" selected>보통</option>
                     <option value="large">큼</option>
                 </select>
 
@@ -134,16 +134,18 @@
                 <img th:src="${backgroundImage != null ? 'data:image/jpeg;base64,' + backgroundImage : ''}"
                      class="card-img-top" alt="배경 이미지">
                 <div class="card-img-overlay d-flex flex-column h-100">
-                    <div class="form-floating is-invalid mb-3 align-self-start">
-                        <span>To.</span>
-                        <input type="text" id="receiver" name="receiver" placeholder="받는 사람">
+                    <div class="form-floating is-invalid mb-3 align-self-start w-25">
+                        <div id="receiver" contenteditable="true" class="medium black">
+                            <span>To.</span>
+                        </div>
                     </div>
                     <div class="form-floating flex-fill mb-3">
-                        <div id="card-content" contenteditable="true"></div>
+                        <div id="card-content" contenteditable="true" class="medium black"></div>
                     </div>
-                    <div class="form-floating is-invalid mt-auto align-self-end">
-                        <span>From.</span>
-                        <input type="text" id="sender" name="sender" placeholder="보내는 사람">
+                    <div class="form-floating is-invalid mt-auto align-self-end w-25">
+                        <div id="sender" contenteditable="true" class="medium black">
+                            <span>From.</span>
+                        </div>
                     </div>
                 </div>
             </div>
