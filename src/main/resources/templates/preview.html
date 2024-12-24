@@ -131,8 +131,8 @@
                 <button type="button" onclick="applyStyle('underline')">U</button>
             </div>
             <div class="card w-50 h-50">
-                <img th:src="${backgroundImage != null ? 'data:image/jpeg;base64,' + backgroundImage : ''}"
-                     class="card-img-top" alt="배경 이미지">
+                <img th:src="${backgroundImage}" class="card-img-top" alt="배경 이미지">
+                <input type="hidden" name="image" th:value="${backgroundImage}"/>
                 <div class="card-img-overlay d-flex flex-column h-100">
                     <div class="form-floating is-invalid mb-3 align-self-start w-25">
                         <div id="receiver" contenteditable="true" class="medium black">
