@@ -2,7 +2,7 @@ package com.yeonjaeman.start_letter_project.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "letters")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Data
 public class Letter {
 
     @Id
