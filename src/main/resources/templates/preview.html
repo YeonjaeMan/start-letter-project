@@ -187,8 +187,10 @@
                 contentType: 'application/json', // JSON 형식으로 전송
                 data: JSON.stringify(data), // JSON 문자열로 변환
                 success: function(res) {
-                    alert('카드가 성공적으로 생성되었습니다.');
-                    window.location.href = '/letters/start';
+                    alert(res.message);
+                    const letterId = res.letterId;
+                    console.log('Letter ID:', letterId);
+                    window.location.href = `/letters/end/${letterId}`;
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error:', textStatus, errorThrown);
