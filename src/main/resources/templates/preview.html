@@ -92,7 +92,6 @@
 
 <main>
     <section class="container">
-        <form th:action="@{/letters/new}" method="POST">
             <h3>카드 작성</h3>
             <div id="editor-toolbar">
                 <select onchange="">
@@ -132,26 +131,22 @@
             </div>
             <div class="card w-50 h-50">
                 <img th:src="${backgroundImage}" class="card-img-top" alt="배경 이미지">
-                <input type="hidden" name="image" th:value="${backgroundImage}"/>
                 <div class="card-img-overlay d-flex flex-column h-100">
-                    <div class="form-floating is-invalid mb-3 align-self-start w-25">
-                        <div id="receiver" contenteditable="true" class="medium black">
-                            <span>To.</span>
-                        </div>
+                    <div class="d-flex form-floating is-invalid mb-3 align-self-start w-25">
+                        <span>To.</span>
+                        <div id="receiver" contenteditable="true" class="w-100 medium black"></div>
                     </div>
                     <div class="form-floating flex-fill mb-3">
-                        <div id="card-content" contenteditable="true" class="medium black"></div>
+                        <div id="content" contenteditable="true" class="w-100 h-100 medium black"></div>
                     </div>
-                    <div class="form-floating is-invalid mt-auto align-self-end w-25">
-                        <div id="sender" contenteditable="true" class="medium black">
-                            <span>From.</span>
-                        </div>
+                    <div class="d-flex form-floating is-invalid mt-auto align-self-end w-25">
+                        <span>From.</span>
+                        <div id="sender" contenteditable="true" class="w-100 medium black"></div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">카드 생성하기</button>
+            <button id="create-card-btn" class="btn btn-primary mt-3">카드 생성하기</button>
             <a href="/letters/start" class="btn btn-secondary mt-3">다시 업로드하기</a>
-        </form>
     </section>
 </main>
 
@@ -169,7 +164,40 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 <script>
+    $(document).ready(function() {
+        $('#create-card-btn').on('click', function(e) {
+            e.preventDefault();
+
+            const data = {
+                receiver: $('#receiver').html(),
+                sender: $('#sender').html(),
+                content: $('#content').html(),
+                image: $('img').attr('src') ? $('img').attr('src').split(',')[1] : null
+            };
+
+            console.log('Data to send:', data);
+
+            $.ajax({
+                url: '/letters/new',
+                type: 'POST',
+                contentType: 'application/json', // JSON 형식으로 전송
+                data: JSON.stringify(data), // JSON 문자열로 변환
+                success: function(res) {
+                    alert('카드가 성공적으로 생성되었습니다.');
+                    window.location.href = '/letters/start';
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                    alert('서버에 요청하는 중 오류가 발생했습니다: ' + jqXHR.responseText);
+                }
+            });
+        });
+    });
+
     function applyStyle(style) {
         const selection = window.getSelection(); // 현재 선택된 텍스트 가져오기
         if (selection.rangeCount > 0) {
