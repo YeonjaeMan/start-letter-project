@@ -41,40 +41,56 @@
         });
     });
 
-    function applyStyle(style) {
-        const selection = window.getSelection(); // 현재 선택된 텍스트 가져오기
-        if (selection.rangeCount > 0) {
-            // 드래그된 텍스트가 있는 경우
-            const range = selection.getRangeAt(0);
-            const span = document.createElement("span");
-            span.className = style; // 선택한 스타일 클래스 추가
-            range.surroundContents(span); // 선택된 텍스트를 감싸기
-        } else {
-            // 드래그된 텍스트가 없는 경우, 전체 스타일 적용
-            const content = document.getElementById('card-content');
-            content.classList.toggle(style); // 전체 스타일 토글
-        }
-    }
+function changeFont(font) {
+    const editableElements = [document.getElementById('content'), document.getElementById('receiver'), document.getElementById('sender')];
+    editableElements.forEach(element => {
+        element.style.fontFamily = font;
+    });
+}
 
-    function changeColor(color) {
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-            document.execCommand('foreColor', false, color); // 드래그된 텍스트 색상 변경
-        } else {
-            const content = document.getElementById('card-content');
-            content.style.color = color; // 전체 색상 변경
-        }
-    }
+function changeFontColor(color) {
+    const editableElements = [document.getElementById('content'), document.getElementById('receiver'), document.getElementById('sender')];
+    editableElements.forEach(element => {
+        element.style.color = color;
+    });
+}
 
-    function changeSize(size) {
-        const content = document.getElementById('card-content');
-        content.classList.remove('large', 'medium', 'small'); // 기존 크기 클래스 제거
-        if (size) {
-            content.classList.add(size); // 선택한 크기 클래스 추가
-        }
+function changeSize(size) {
+    let fontSize;
+    switch (size) {
+        case 'small':
+            fontSize = '0.8rem';
+            break;
+        case 'medium':
+            fontSize = '1.2rem';
+            break;
+        case 'large':
+            fontSize = '1.5rem';
+            break;
     }
+    const editableElements = [document.getElementById('content'), document.getElementById('receiver'), document.getElementById('sender')];
+    editableElements.forEach(element => {
+        element.style.fontSize = fontSize;
+    });
+}
 
-    function changeAlignment(alignment) {
-        const content = document.getElementById('card-content');
-        content.style.textAlign = alignment; // 정렬 변경
-    }
+function changeAlignment(alignment) {
+    const editableElements = [document.getElementById('content'), document.getElementById('receiver'), document.getElementById('sender')];
+    editableElements.forEach(element => {
+        element.style.textAlign = alignment;
+    });
+}
+
+function applyStyle(style) {
+    const editableElements = [document.getElementById('content'), document.getElementById('receiver'), document.getElementById('sender')];
+    editableElements.forEach(element => {
+        const currentStyle = element.style.fontWeight;
+        if (style === 'bold') {
+            element.style.fontWeight = currentStyle === 'bold' ? 'normal' : 'bold';
+        } else if (style === 'italic') {
+            element.style.fontStyle = element.style.fontStyle === 'italic' ? 'normal' : 'italic';
+        } else if (style === 'underline') {
+            element.style.textDecoration = element.style.textDecoration === 'underline' ? 'none' : 'underline';
+        }
+    });
+}
