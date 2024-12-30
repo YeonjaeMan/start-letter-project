@@ -23,7 +23,7 @@ public class LettersController {
 
     @GetMapping("/start")
     public String showStartPage() {
-        return "start";
+        return "contents/start";
     }
 
     @ResponseBody
@@ -66,6 +66,6 @@ public class LettersController {
         model.addAttribute("content", letter.getContent());
         model.addAttribute("image", Base64.getEncoder().encodeToString(letter.getImage()));
 
-        return "end";
+        return "contents/end";
     }
 }
