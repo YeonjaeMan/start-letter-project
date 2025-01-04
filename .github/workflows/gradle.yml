@@ -14,6 +14,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Create application.properties
+      run: |
+        PROPERTIES_FILE="src/main/resources/application.properties"
+          
+        DB_URL="${{ secrets.DB_URL }}"
+        USERNAME="${{ secrets.DB_USERNAME }}"
+        PW="${{ secrets.DB_PW }}"
+          
+        echo "db.url=${DB_URL}" >> $PROPERTIES_FILE
+        echo "db.username=${USERNAME}" >> $PROPERTIES_FILE
+        echo "db.password=${PW}" >> $PROPERTIES_FILE
+
     - name: Spring Boot Build
       run: ./gradlew clean build --exclude-task test
 

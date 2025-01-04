@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### key ###
+access-key/
+
+application.properties
