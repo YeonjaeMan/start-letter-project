@@ -22,15 +22,15 @@ jobs:
         USERNAME="${{ secrets.DB_USERNAME }}"
         PW="${{ secrets.DB_PW }}"
           
-        echo "db.url=${DB_URL}" >> $PROPERTIES_FILE
-        echo "db.username=${USERNAME}" >> $PROPERTIES_FILE
-        echo "db.password=${PW}" >> $PROPERTIES_FILE
+        echo "spring.datasource.url=${DB_URL}" >> $PROPERTIES_FILE
+        echo "spring.datasource.username=${USERNAME}" >> $PROPERTIES_FILE
+        echo "spring.datasource.password=${PW}" >> $PROPERTIES_FILE
 
     - name: Spring Boot Build
       run: ./gradlew clean build --exclude-task test
 
     - name: docker image build
-      run: docker build --platform linux/amd64/v3 -t yeondoit98/shamory_image .
+      run: docker build --platform linux/amd64/v3 -t yeondoit98/shamory_image:latest .
 
     - name: docker login
       uses: docker/login-action@v2
