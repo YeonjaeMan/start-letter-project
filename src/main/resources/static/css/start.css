@@ -38,43 +38,88 @@
         transform: scale(1.1);
     }
 
-        #card-content {
-            background-color: transparent; /* 배경 투명하게 설정 */
-            border: none; /* 테두리 제거 */
-            height: 100%; /* 높이를 100%로 설정 */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative; /* 줄을 위한 위치 설정 */
-            line-height: 3; /* 줄 간격 설정 */
-        }
-        #card-content::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 3em;
-            right: 0;
-            height: 100%;
-            background-image: linear-gradient(to bottom, #000 1px, transparent 1px); /* 줄을 그리기 위한 배경 이미지 */
-            background-size: 100% 3em; /* 줄 간격 조정 */
-            pointer-events: none; /* 클릭 이벤트 비활성화 */
-        }
-        #card-content:focus {
-            outline: none;
-            border: none;
-        }
-        #receiver, #sender {
-            background-color: transparent;
-            outline: none;
-            border: none;
-            border-bottom: 1px solid #000;
-        }
-        .bold { font-weight: bold; }
-        .italic { font-style: italic; }
-        .underline { text-decoration: underline; }
-        .white { color: white; }
-        .red { color: red; }
-        .blue { color: blue; }
-        .green { color: green; }
-        .black { color: black; }
-        .large { font-size: 1.5em; }
-        .medium { font-size: 1.2em; }
-        .small { font-size: 0.8em; }
+    #card-content {
+        background-color: transparent;
+        /* 배경 투명하게 설정 */
+        border: none;
+        /* 테두리 제거 */
+        height: 100%;
+        /* 높이를 100%로 설정 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        /* 줄을 위한 위치 설정 */
+        line-height: 3;
+        /* 줄 간격 설정 */
+    }
+
+    #card-content::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 3em;
+        right: 0;
+        height: 100%;
+        background-image: linear-gradient(to bottom, #000 1px, transparent 1px);
+        /* 줄을 그리기 위한 배경 이미지 */
+        background-size: 100% 3em;
+        /* 줄 간격 조정 */
+        pointer-events: none;
+        /* 클릭 이벤트 비활성화 */
+    }
+
+    #card-content:focus {
+        outline: none;
+        border: none;
+    }
+
+    #receiver,
+    #sender {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #000;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .white {
+        color: white;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .black {
+        color: black;
+    }
+
+    .large {
+        font-size: 1.5em;
+    }
+
+    .medium {
+        font-size: 1.2em;
+    }
+
+    .small {
+        font-size: 0.8em;
+    }
