@@ -10,12 +10,7 @@
 </head>
 
 <main class="container">
-    <div class="row mt-3 mb-3">
-        <div class="col-12 d-flex justify-content-end">
-            <a href="/letters/start" class="btn btn-secondary">다시 작성하기</a>
-        </div>
-    </div>
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center mt-3 mb-3">
         <div class="col-12 col-md-8 col-lg-6">
             <div class="card w-100">
                 <img th:src="'data:image/png;base64,' + ${image}" class="card-img-top" alt="배경 이미지">
@@ -25,6 +20,11 @@
                     <div class="d-flex form-floating mt-auto align-self-end w-25" th:utext="${sender}"></div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <a href="/letters/start" class="btn btn-secondary">다시 작성하기</a>
         </div>
     </div>
 </main>
